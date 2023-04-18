@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(title='Książka kucharska')}"></head>
+<body>
+
+<div th:replace="~{fragments :: header}"></div>
+
+<h2 class="content">Najpopularniejsze przepisy</h2>
+<div class="content" th:each="recipe: ${threeMostLikedRecipes}">
+    <a th:href="|@{/recipe/id=}${recipe.id}|">
+        <button type="button"><p
+                th:text="|*{recipe.category.name} - *{recipe.name} (*{recipe.popularity} lajków)|"></p>
+        </button>
+    </a>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>
