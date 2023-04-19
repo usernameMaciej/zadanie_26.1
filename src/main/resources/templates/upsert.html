@@ -4,7 +4,7 @@
 <body>
 
 <div th:replace="~{fragments :: header}"></div>
-<form action="/add" method="post" th:object="${recipe}">
+<form th:action="${mode eq 'add' ? '/add' : '/edit'}" method="post" th:object="${recipe}">
     <h2>Dodawanie przepisu</h2>
 
     <input type="hidden" th:field="*{id}"/>
@@ -45,7 +45,7 @@
             </select>
         </label>
     </div>
-    <input style="margin-left: 80px; margin-right: 80px" type="submit" value="Edytuj przepis!"/>
+    <input style="margin-left: 80px; margin-right: 80px" type="submit" th:value="|${mode eq 'add' ? 'Dodaj' : 'Edytuj'} przepis!|"/>
 </form>
 
 <footer th:replace="~{fragments :: footer}"></footer>

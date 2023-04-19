@@ -7,7 +7,6 @@ public class RecipeDto {
     private String name;
     private String description;
     private int popularity;
-    private Long categoryId;
     private int timeNeeded;
     private Difficulty difficulty;
     private Category category;
@@ -15,12 +14,11 @@ public class RecipeDto {
     public RecipeDto() {
     }
 
-    public RecipeDto(Long id, String name, String description, int popularity, Long categoryId, int timeNeeded, Difficulty difficulty) {
+    public RecipeDto(Long id, String name, String description, int popularity, int timeNeeded, Difficulty difficulty) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.popularity = popularity;
-        this.categoryId = categoryId;
         this.timeNeeded = timeNeeded;
         this.difficulty = difficulty;
     }
@@ -55,14 +53,6 @@ public class RecipeDto {
 
     public void setPopularity(int popularity) {
         this.popularity = popularity;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
     }
 
     public int getTimeNeeded() {

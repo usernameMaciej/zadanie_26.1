@@ -5,11 +5,11 @@
 
 <div th:replace="~{fragments :: header}"></div>
 
-<h5 style="margin-left: 40px">Wszystkie przepisy:</h5>
-<ul th:each="recipe: ${recipes}">
+<h4>Wszystkie przepisy:</h4>
+<ul class="content" th:each="recipe: ${recipes}">
     <a th:href="|@{/recipe/id=}${recipe.id} |">
         <button type="button"
-                th:text="|${recipe.category.name} - ${recipe.name} (${recipe.popularity} lajków)|"></button>
+                th:text="|${recipe.category.name} - ${recipe.name} (${recipe.popularity} &#x1F44D;)|"></button>
     </a>
 </ul>
 

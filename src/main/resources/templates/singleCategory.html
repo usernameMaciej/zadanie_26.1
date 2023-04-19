@@ -5,21 +5,16 @@
 
 <div th:replace="~{fragments :: header}"></div>
 
-<h2 th:text="${singleRecipe.name}"></h2>
-<h5 th:text="|Kategoria: ${singleRecipe.category.name} - ${singleRecipe.category.description}|"></h5>
+<h2 th:text="${category.name}"></h2>
 
-<h5>Wykonanie:</h5>
-<div class="description" th:text="${singleRecipe.description}"></div><br>
+<div class="content"><img th:src="@{|/pictures/${category.img}|}" width="300px" height="200px"></div><br>
 
-<h4>Jeśli przepis ci się spodobał zostaw lajka </h4>
-<div class="content">
-<p><a th:href="'/like/id=' + ${singleRecipe.id}"><button type="button" th:text="|Lubię to (&#x1F44D; ${singleRecipe.popularity})|"></button></a></p></div>
+<h5 class="content" th:text="|Opis: ${category.description}|"></h5>
 
-<div class="content" th:text="|(${singleRecipe.popularity} lajków)|"></div>
-
-<div class="content">
-<a th:href="'/recipe/edit/id=' + ${singleRecipe.id}"><button type="button">Edytuj przepis</button></a>
-<a th:href="@{/}"><button type="button">Usuń przepis</button></a>
+<h3>Przepisy z tej kategorii</h3>
+<div class="content" th:each="recipe : ${recipes}">
+    <a th:href="|@{/recipe/id=}${recipe.id}|">
+        <button th:text="|${recipe.name} - ${recipe.difficulty.getPlTranslation()} (${recipe.popularity} &#x1F44D;)|"></button></a>
 </div>
 
 <footer th:replace="~{fragments :: footer}"></footer>

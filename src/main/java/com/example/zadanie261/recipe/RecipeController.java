@@ -2,16 +2,16 @@ package com.example.zadanie261.recipe;
 
 import com.example.zadanie261.category.Category;
 import com.example.zadanie261.category.CategoryService;
-import com.example.zadanie261.exception.RecipeNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Controller
 public class RecipeController {
@@ -25,35 +25,36 @@ public class RecipeController {
 
     @GetMapping("/add")
     public String addRecipe(Model model) {
-        model.addAttribute("recipe", new Recipe());
+        model.addAttribute("recipe", new RecipeDto());
         model.addAttribute("categories", findCategoriesToModel());
-        return "add";
+        model.addAttribute("mode", "add");
+        return "upsert";
     }
 
     @PostMapping("/add")
-    public String addRecipe(Recipe recipe) {
-        recipeService.addRecipe(recipe);
+    public String addRecipe(RecipeDto recipeDto) {
+        recipeService.addRecipe(recipeDto);
         return "redirect:/";
     }
 
     @GetMapping("/recipe/edit/id={id}")
     public String showRecipeEditForm(@PathVariable Long id, Model model) {
-        Recipe recipe = recipeService.findById(id).orElseThrow(RecipeNotFoundException::new);
+        Recipe recipe = recipeService.findById(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
         model.addAttribute("recipe", recipe);
         model.addAttribute("categories", findCategoriesToModel());
-        return "edit";
+        return "upsert";
+    }
+
+    @PostMapping("/edit")
+    public String editRecipe(RecipeDto recipeDto) {
+        recipeService.editRecipe(recipeDto);
+        return "redirect:/recipes";
     }
 
     @GetMapping("/recipe/id={id}")
     public String singleRecipe(@PathVariable Long id, Model model) {
-        Optional<Recipe> recipe = recipeService.findById(id);
-
-        if (recipe.isPresent()) {
-            Recipe singleRecipe = recipe.get();
-            model.addAttribute("singleRecipe", singleRecipe);
-        } else {
-            throw new RecipeNotFoundException();
-        }
+        Recipe recipe = recipeService.findById(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+        model.addAttribute("singleRecipe", recipe);
         return "singleRecipe";
     }
 
@@ -71,14 +72,9 @@ public class RecipeController {
 
     @GetMapping("/like/id={id}")
     public String like(@PathVariable Long id) {
-        Optional<Recipe> likeId = recipeService.findById(id);
-
-        if (likeId.isPresent()) {
-            recipeService.addLike(id);
-            return "redirect:/recipe/id=" + likeId.get().getId();
-        } else {
-            throw new RecipeNotFoundException();
-        }
+        Recipe recipe = recipeService.findById(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+        recipeService.addLike(id);
+        return "redirect:/recipe/id=" + recipe.getId();
     }
 
     private List<Category> findCategoriesToModel() {
