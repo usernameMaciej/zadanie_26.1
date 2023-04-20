@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(title='Książka kucharska')}"></head>
+<body>
+
+<div th:replace="~{fragments :: header}"></div>
+
+<h2 th:text="${singleRecipe.name}"></h2>
+<h5 th:text="|Kategoria: ${singleRecipe.category.name} - ${singleRecipe.category.description}|"></h5>
+
+<h5>Wykonanie:</h5>
+<div class="description" th:text="${singleRecipe.description}"></div>
+<br>
+
+<h4>Trudność przepisu:</h4>
+<div class="content" th:text="|${singleRecipe.difficulty.getPlTranslation()}|"></div>
+<br/>
+
+<h4>Potrzebny czas:</h4>
+<div class="content" th:text="|${singleRecipe.timeNeeded} minut|"></div>
+</br>
+
+<h4>Jeśli przepis ci się spodobał zostaw lajka ;)</h4>
+<div class="content">
+    <p><a th:href="'/like/id/' + ${singleRecipe.id}">
+        <button type="button" th:text="|Lubię to (&#x1F44D; ${singleRecipe.popularity})|"></button>
+    </a></p>
+</div>
+<br/>
+
+<div class="content">
+    <a th:href="'/recipe/edit/id/' + ${singleRecipe.id}">
+        <button type="button">Edytuj przepis</button>
+    </a>
+    <a th:href="'/recipe/delete/id/' + ${singleRecipe.id}">
+        <button type="button">Usuń przepis</button>
+    </a>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>

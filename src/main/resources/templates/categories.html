@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(title='Książka kucharska')}"></head>
+<body>
+
+<div th:replace="~{fragments :: header}"></div>
+
+<h4>Wszystkie kategorie:</h4>
+<ul class="content" th:each="category: ${categories}">
+    <a th:href="|@{/category/id/}${category.id}|">
+        <button type="button" th:text="|${category.name}|"> ></button>
+    </a>
+</ul>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>
