@@ -1,12 +1,10 @@
 package com.example.zadanie261.recipe;
 
-import com.example.zadanie261.category.CategoryService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,9 +29,15 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
+    @Transactional
     public void editRecipe(RecipeDto recipeDto) {
         Recipe recipe = recipeRepository.findById(recipeDto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
-        toDto(recipe);
+        recipe.setName(recipeDto.getName());
+        recipe.setDescription(recipeDto.getDescription());
+        recipe.setPopularity(recipeDto.getPopularity());
+        recipe.setCategory(recipeDto.getCategory());
+        recipe.setTimeNeeded(recipeDto.getTimeNeeded());
+        recipe.setDifficulty(recipeDto.getDifficulty());
         recipeRepository.save(recipe);
     }
 
@@ -69,12 +73,13 @@ public class RecipeService {
 
     private RecipeDto toDto(Recipe recipe) {
         RecipeDto recipeDto = new RecipeDto();
-        recipe.setName(recipeDto.getName());
-        recipe.setDescription(recipeDto.getDescription());
-        recipe.setPopularity(recipeDto.getPopularity());
-        recipe.setCategory(recipeDto.getCategory());
-        recipe.setTimeNeeded(recipeDto.getTimeNeeded());
-        recipe.setDifficulty(recipeDto.getDifficulty());
+        recipeDto.setId(recipe.getId());
+        recipeDto.setName(recipe.getName());
+        recipeDto.setDescription(recipe.getDescription());
+        recipeDto.setPopularity(recipe.getPopularity());
+        recipeDto.setCategory(recipe.getCategory());
+        recipeDto.setTimeNeeded(recipe.getTimeNeeded());
+        recipeDto.setDifficulty(recipe.getDifficulty());
         return recipeDto;
     }
 }

@@ -6,6 +6,9 @@ public class CategoryDto {
     private String description;
     private String img;
 
+    public CategoryDto() {
+    }
+
     public CategoryDto(Long id, String name, String description, String img) {
         this.id = id;
         this.name = name;

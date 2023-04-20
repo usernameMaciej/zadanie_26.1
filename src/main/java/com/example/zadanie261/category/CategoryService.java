@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -15,13 +16,20 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<Category> findAllCategories() {
-        return categoryRepository.findAllByOrderByNameDesc();
+    public List<CategoryDto> findAllCategories() {
+        return categoryRepository.findAllByOrderByNameDesc().stream().map(this::toDto).collect(Collectors.toList());
     }
 
     public CategoryDto findById(Long id) {
         return categoryRepository.findById(id)
-                .map(category -> new CategoryDto(category.getId(), category.getName(), category.getDescription(), category.getImg()))
+                .map(this::toDto)
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+    }
+
+    private CategoryDto toDto(Category category) {
+        return new CategoryDto(category.getId(),
+                category.getName(),
+                category.getDescription(),
+                category.getImg());
     }
 }

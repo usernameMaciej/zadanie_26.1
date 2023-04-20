@@ -9,7 +9,7 @@
 <div class="content" th:each="recipe: ${threeMostLikedRecipes}">
     <a th:href="|@{/recipe/id/}${recipe.id}|">
         <button type="button"><p
-                th:text="|*{recipe.category.name} - *{recipe.name} (*{recipe.popularity} &#x1F44D;)|"></p>
+                th:text="|${recipe.category.name} - ${recipe.name} (${recipe.popularity} &#x1F44D;)|"></p>
         </button>
     </a>
 </div>

@@ -1,6 +1,6 @@
 package com.example.zadanie261.recipe;
 
-import com.example.zadanie261.category.Category;
+import com.example.zadanie261.category.CategoryDto;
 import com.example.zadanie261.category.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,7 +77,7 @@ public class RecipeController {
         return "redirect:/recipe/id/" + recipe.getId();
     }
 
-    private List<Category> findCategoriesToModel() {
+    private List<CategoryDto> findCategoriesToModel() {
         return categoryService.findAllCategories();
     }
 }

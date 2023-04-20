@@ -22,7 +22,7 @@
 
 <h4>Jeśli przepis ci się spodobał zostaw lajka ;)</h4>
 <div class="content">
-    <p><a th:href="'/like/id=' + ${singleRecipe.id}">
+    <p><a th:href="'/like/id/' + ${singleRecipe.id}">
         <button type="button" th:text="|Lubię to (&#x1F44D; ${singleRecipe.popularity})|"></button>
     </a></p>
 </div>
