@@ -28,7 +28,7 @@ public class RecipeController {
         model.addAttribute("recipe", new RecipeDto());
         model.addAttribute("categories", findCategoriesToModel());
         model.addAttribute("mode", "add");
-        return "upsert";
+        return "upsertRecipe";
     }
 
     @PostMapping("/add")
@@ -37,12 +37,12 @@ public class RecipeController {
         return "redirect:/";
     }
 
-    @GetMapping("/recipe/edit/id={id}")
+    @GetMapping("/recipe/edit/id/{id}")
     public String showRecipeEditForm(@PathVariable Long id, Model model) {
-        Recipe recipe = recipeService.findById(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+        RecipeDto recipe = recipeService.findById(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
         model.addAttribute("recipe", recipe);
         model.addAttribute("categories", findCategoriesToModel());
-        return "upsert";
+        return "upsertRecipe";
     }
 
     @PostMapping("/edit")
@@ -51,17 +51,17 @@ public class RecipeController {
         return "redirect:/recipes";
     }
 
-    @GetMapping("/recipe/id={id}")
+    @GetMapping("/recipe/id/{id}")
     public String singleRecipe(@PathVariable Long id, Model model) {
-        Recipe recipe = recipeService.findById(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+        RecipeDto recipe = recipeService.findById(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
         model.addAttribute("singleRecipe", recipe);
         return "singleRecipe";
     }
 
-    @GetMapping("/recipe/delete/id={id}")
+    @GetMapping("/recipe/delete/id/{id}")
     public String deleteRecipe(@PathVariable Long id) {
         recipeService.deleteRecipeById(id);
-        return "redirect:/recipes";
+        return "redirect:/";
     }
 
     @GetMapping("/recipes")
@@ -70,11 +70,11 @@ public class RecipeController {
         return "recipes";
     }
 
-    @GetMapping("/like/id={id}")
+    @GetMapping("/like/id/{id}")
     public String like(@PathVariable Long id) {
-        Recipe recipe = recipeService.findById(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+        RecipeDto recipe = recipeService.findById(id).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
         recipeService.addLike(id);
-        return "redirect:/recipe/id=" + recipe.getId();
+        return "redirect:/recipe/id/" + recipe.getId();
     }
 
     private List<Category> findCategoriesToModel() {

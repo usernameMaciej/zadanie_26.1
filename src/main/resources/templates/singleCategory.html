@@ -13,7 +13,7 @@
 
 <h3>Przepisy z tej kategorii</h3>
 <div class="content" th:each="recipe : ${recipes}">
-    <a th:href="|@{/recipe/id=}${recipe.id}|">
+    <a th:href="|@{/recipe/id/}${recipe.id}|">
         <button th:text="|${recipe.name} - ${recipe.difficulty.getPlTranslation()} (${recipe.popularity} &#x1F44D;)|"></button></a>
 </div>
 

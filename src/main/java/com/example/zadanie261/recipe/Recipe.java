@@ -9,7 +9,7 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(length = 1777)
+    @Column(columnDefinition = "TEXT")
     private String description;
     private int popularity;
     @ManyToOne
@@ -21,8 +21,7 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(Long id, String name, String description, int popularity, Category category, int timeNeeded, Difficulty difficulty) {
-        this.id = id;
+    public Recipe(String name, String description, int popularity, Category category, int timeNeeded, Difficulty difficulty) {
         this.name = name;
         this.description = description;
         this.popularity = popularity;

@@ -16,16 +16,13 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Service
 public class RecipeService {
     private final RecipeRepository recipeRepository;
-    private final CategoryService categoryService;
 
-    public RecipeService(RecipeRepository recipeRepository, CategoryService categoryService) {
+    public RecipeService(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
-        this.categoryService = categoryService;
     }
 
     public void addRecipe(RecipeDto recipeDto) {
-        Recipe recipe = new Recipe(recipeDto.getId(),
-                recipeDto.getName(),
+        Recipe recipe = new Recipe(recipeDto.getName(),
                 recipeDto.getDescription(),
                 recipeDto.getPopularity(),
                 recipeDto.getCategory(),
@@ -35,26 +32,21 @@ public class RecipeService {
     }
 
     public void editRecipe(RecipeDto recipeDto) {
-        Recipe recipe = new Recipe(recipeDto.getId(),
-                recipeDto.getName(),
-                recipeDto.getDescription(),
-                recipeDto.getPopularity(),
-                recipeDto.getCategory(),
-                recipeDto.getTimeNeeded(),
-                recipeDto.getDifficulty());
+        Recipe recipe = recipeRepository.findById(recipeDto.getId()).orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+        toDto(recipe);
         recipeRepository.save(recipe);
     }
 
-    public List<Recipe> find3MostLikedRecipes() {
-        return recipeRepository.findTop3ByOrderByPopularityDesc();
+    public List<RecipeDto> find3MostLikedRecipes() {
+        return recipeRepository.findTop3ByOrderByPopularityDesc().stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    public List<Recipe> findAllRecipes() {
-        return recipeRepository.findAllByOrderByCategoryAsc();
+    public List<RecipeDto> findAllRecipes() {
+        return recipeRepository.findAllByOrderByCategoryAsc().stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    public Optional<Recipe> findById(Long id) {
-        return recipeRepository.findById(id);
+    public Optional<RecipeDto> findById(Long id) {
+        return recipeRepository.findById(id).map(this::toDto);
     }
 
     public void deleteRecipeById(Long id) {
@@ -69,14 +61,20 @@ public class RecipeService {
     }
 
     public List<RecipeDto> findRecipesByCategoryId(Long id) {
-        List<RecipeDto> recipesByCategory = new ArrayList<>();
-        recipeRepository.findRecipesByCategoryId(id).forEach(recipe -> recipesByCategory.add(new RecipeDto(
-                recipe.getId(),
-                recipe.getName(),
-                recipe.getDescription(),
-                recipe.getPopularity(),
-                recipe.getTimeNeeded(),
-                recipe.getDifficulty())));
-        return recipesByCategory;
+        return recipeRepository.findRecipesByCategoryId(id)
+                .stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
+    private RecipeDto toDto(Recipe recipe) {
+        RecipeDto recipeDto = new RecipeDto();
+        recipe.setName(recipeDto.getName());
+        recipe.setDescription(recipeDto.getDescription());
+        recipe.setPopularity(recipeDto.getPopularity());
+        recipe.setCategory(recipeDto.getCategory());
+        recipe.setTimeNeeded(recipeDto.getTimeNeeded());
+        recipe.setDifficulty(recipeDto.getDifficulty());
+        return recipeDto;
     }
 }
