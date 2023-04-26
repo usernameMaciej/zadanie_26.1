@@ -23,6 +23,6 @@ public class UserController {
     @PostMapping("/users")
     String addUser(UserDto userDto) {
         userService.addUser(userDto);
-        return "redirect:/uesrs";
+        return "redirect:/users";
     }
 }

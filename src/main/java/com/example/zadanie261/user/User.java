@@ -3,9 +3,10 @@ package com.example.zadanie261.user;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,15 +14,19 @@ public class User {
     private String firstName;
     private String lastName;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
+    private String email;
+    private boolean isAssignedToNewsletter;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, Date dateOfBirth) {
+    public User(String firstName, String lastName, LocalDate dateOfBirth, String email, boolean isAssignedToNewsletter) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.isAssignedToNewsletter = isAssignedToNewsletter;
     }
 
     public Long getId() {
@@ -48,11 +53,27 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isAssignedToNewsletter() {
+        return isAssignedToNewsletter;
+    }
+
+    public void setAssignedToNewsletter(boolean assignedToNewsletter) {
+        isAssignedToNewsletter = assignedToNewsletter;
     }
 }

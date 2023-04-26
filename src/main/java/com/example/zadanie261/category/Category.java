@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 public class Category {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String description;
@@ -19,8 +20,7 @@ public class Category {
     public Category() {
     }
 
-    public Category(Long id, String name, String description, String img) {
-        this.id = id;
+    public Category(String name, String description, String img) {
         this.name = name;
         this.description = description;
         this.img = img;

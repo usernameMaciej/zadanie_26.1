@@ -23,7 +23,9 @@ public class UserService {
     public void addUser(UserDto userDto) {
         User user = new User(userDto.getFirstName(),
                 userDto.getLastName(),
-                userDto.getDateOfBirth());
+                userDto.getDateOfBirth(),
+                userDto.getEmail(),
+                userDto.isAssignedToNewsletter());
         userRepository.save(user);
     }
 
@@ -31,6 +33,8 @@ public class UserService {
         return new UserDto(user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getDateOfBirth());
+                user.getDateOfBirth(),
+                user.getEmail(),
+                user.isAssignedToNewsletter());
     }
 }

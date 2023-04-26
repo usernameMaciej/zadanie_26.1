@@ -5,8 +5,15 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <include file="0001_create_all_tables.xml" relativeToChangelogFile="true"/>
-    <include file="0002_add_columns_to_users.xml" relativeToChangelogFile="true" context="dev"/>
-    <include file="testdata/testdata.sql" relativeToChangelogFile="true" context="dev"/>
+<changeSet id="0002" author="MaciejPrzystarz">
+
+    <addColumn tableName="users">
+        <column name="email" type="text">
+            <constraints nullable="false"/>
+        </column>
+        <column name="is_assigned_to_newsletter" type="boolean"/>
+    </addColumn>
+
+</changeSet>
 
 </databaseChangeLog>

@@ -5,9 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="0001-01" author="MaciejPrzystarz">
+    <changeSet id="0001" author="MaciejPrzystarz">
 
-        <createTable tableName="user">
+        <createTable tableName="users">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
@@ -26,7 +26,7 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(45)">
+            <column name="name" type="text">
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="text">
@@ -35,19 +35,13 @@
             <column name="img" type="text">
                 <constraints nullable="false"/>
             </column>
-            <column name="recipe_id" type="bigint">
-                <constraints nullable="false"
-                             foreignKeyName="fk_category_recipe_id__recipe_id"
-                             referencedTableName="recipe"
-                             referencedColumnNames="id"/>
-            </column>
         </createTable>
 
         <createTable tableName="recipe">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="name" type="name">
+            <column name="name" type="text">
                 <constraints nullable="false"/>
             </column>
             <column name="description" type="text">
@@ -65,7 +59,7 @@
             <column name="time_needed" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="difficulty" type="enum">
+            <column name="difficulty" type="text">
                 <constraints nullable="false"/>
             </column>
         </createTable>

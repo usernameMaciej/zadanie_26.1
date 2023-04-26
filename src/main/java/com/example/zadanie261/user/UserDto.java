@@ -1,21 +1,28 @@
 package com.example.zadanie261.user;
 
-import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 public class UserDto {
     private Long id;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateOfBirth;
+    private String email;
+    private boolean isAssignedToNewsletter;
 
     public UserDto() {
     }
 
-    public UserDto(Long id, String firstName, String lastName, Date dateOfBirth) {
+    public UserDto(Long id, String firstName, String lastName, LocalDate dateOfBirth, String email, boolean isAssignedToNewsletter) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.isAssignedToNewsletter = isAssignedToNewsletter;
     }
 
     public Long getId() {
@@ -42,11 +49,27 @@ public class UserDto {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isAssignedToNewsletter() {
+        return isAssignedToNewsletter;
+    }
+
+    public void setAssignedToNewsletter(boolean assignedToNewsletter) {
+        isAssignedToNewsletter = assignedToNewsletter;
     }
 }

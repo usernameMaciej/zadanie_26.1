@@ -8,7 +8,8 @@
 <h4>Wszyscy użytkownicy:</h4>
 <ul class="content" th:each="user: ${users}">
     <button type="button"
-            th:text="|${user.firstName} ${user.lastName} - (${user.dateOfBirth})|">
+            th:text="|${user.firstName} ${user.lastName} (${user.dateOfBirth}) - ${user.email}
+            - czy jest zapisany do czasopisma (${user.assignedToNewsletter}) |">
     </button>
 </ul>
 
@@ -30,6 +31,16 @@
     <div class="mb-3" style="margin-left: 80px; margin-right: 80px">
         <label for="dateOfBirth" class="form-label">Data urodzenia</label>
         <input type="date" class="form-control" id="dateOfBirth" th:field="*{dateOfBirth}"/>
+    </div>
+
+    <div class="mb-3" style="margin-left: 80px; margin-right: 80px">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" th:field="*{email}"/>
+    </div>
+
+    <div class="mb-3" style="margin-left: 80px; margin-right: 80px">
+        <label for="assignedToNewsletter" class="form-label">Czy jesteś zapisany do czasopisma</label>
+        <input type="checkbox" class="form-control" id="assignedToNewsletter" th:field="*{assignedToNewsletter}"/>
     </div>
 
     <input style="margin-left: 80px; margin-right: 80px" type="submit" th:value="|Dodaj użytkownika!|"/>
