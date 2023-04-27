@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css"/>
+    <title th:text="${title}">Książka kucharska</title>
+</head>
+<body>
+
+<div th:fragment="header" class="header">
+    <a th:fragment="logo" th:href="@{/}"><img th:src="@{/pictures/cookbook.jpg}" height="300px" width="600px"
+                                              alt="Książka kucharska"></a><br>
+    <div class="menu">
+        <a href="/recipes">
+            <button type="button">Wszystkie przepisy</button>
+        </a>
+        <a href="/categories">
+            <button type="button">Kategorie</button>
+        </a>
+        <a href="/add">
+            <button type="button">Dodaj przepis</button>
+        </a>
+        <a href="/users">
+           <button type="button">Wszyscy użytkownicy</button>
+        </a>
+    </div>
+</div>
+
+<footer th:fragment="footer" class="footer">
+    <p>®2023 Wszelkie prawa zastrzeżone - Książka kucharska</p>
+</footer>
+
+</body>
+</html>

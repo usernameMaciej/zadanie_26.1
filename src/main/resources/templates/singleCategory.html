@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(title='Książka kucharska')}"></head>
+<body>
+
+<div th:replace="~{fragments :: header}"></div>
+
+<h2 th:text="${category.name}"></h2>
+
+<div class="content"><img th:src="@{|/pictures/${category.img}|}" width="300px" height="200px"></div><br>
+
+<h5 class="content" th:text="|Opis: ${category.description}|"></h5>
+
+<h3>Przepisy z tej kategorii</h3>
+<div class="content" th:each="recipe : ${recipes}">
+    <a th:href="|@{/recipe/id/}${recipe.id}|">
+        <button th:text="|${recipe.name} - ${recipe.difficulty.getPlTranslation()} (${recipe.popularity} &#x1F44D;)|"></button></a>
+</div>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+
+</body>
+</html>
