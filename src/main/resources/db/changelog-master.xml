@@ -5,8 +5,8 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <include file="0001_create_all_tables.xml" relativeToChangelogFile="true"/>
-    <include file="0002_add_columns_to_users.xml" relativeToChangelogFile="true" context="dev"/>
+    <include file="0001_create_all_tables.xml" relativeToChangelogFile="true" context="dev, prod"/>
+    <include file="0002_add_columns_to_users.xml" relativeToChangelogFile="true" context="dev, prod"/>
     <include file="testdata/testdata.sql" relativeToChangelogFile="true" context="dev"/>
 
 </databaseChangeLog>
